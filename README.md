@@ -6,7 +6,7 @@ Simple web-based weather application created with Vue.js.
 * node.js
 * npm
 
-The following commands should be executed in the app folder.
+**IMPORTANT:** The following commands should be executed in the app folder.
 
 ### Project setup
 ```
