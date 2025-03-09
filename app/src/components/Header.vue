@@ -3,14 +3,31 @@
     <div class="header">
       <i class="bi bi-brightness-low"></i>
       <p>WeatherNow</p>
-      <input type="text" placeholder="Search for a city..." class="search" />
+      <input 
+        type="text" 
+        placeholder="Search for a city..." 
+        class="search"
+        v-model="query" 
+        v-on:keypress="sendQueryToParent" />
     </div>
   </header>
 </template>
 
 <script>
 export default {
-  name: 'Header'
+  name: 'Header',
+  data () {
+    return {
+      query: ''
+    }
+  },
+  methods: {
+    sendQueryToParent (e) {
+      if (e.key == "Enter") {
+        this.$emit('enter', this.query);
+      }
+    }
+  }
 }
 </script>
 
