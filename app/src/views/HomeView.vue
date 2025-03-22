@@ -9,7 +9,8 @@
         <CityNotFoundModal></CityNotFoundModal>
       </div>
       <div v-else>
-        {{ weather }}
+        <WeatherDisplayArea :currentWeatherData='weather' :hourlyForecastData='hourlyForecast'>
+        </WeatherDisplayArea>
       </div>
     </div>
   </div>
@@ -20,14 +21,16 @@ import axios from "axios"
 import Header from '../components/Header.vue'
 import AboutModal from '../components/AboutModal.vue'
 import CityNotFoundModal from '../components/CityNotFoundModal.vue'
+import WeatherDisplayArea from '../components/WeatherDisplayArea.vue'
 
 export default {
   name: 'HomeView',
   data () {
     return {
-      url_base: 'https://api.openweathermap.org/data/2.5/',
-      api_key: '7efa332cf48aeb9d2d391a51027f1a71',
+      urlBase: 'https://api.openweathermap.org/data/2.5/',
+      apiKey: '7efa332cf48aeb9d2d391a51027f1a71',
       weather: {},
+      hourlyForecast: {},
       cityNotFound: false
     }
   },
@@ -36,8 +39,15 @@ export default {
       if(enteredCity.trim().length !== 0) {
         this.cityNotFound = false;
         axios
-          .get(`${this.url_base}weather?q=${enteredCity}&units=metric&APPID=${this.api_key}`)
+          .get(`${this.urlBase}weather?q=${enteredCity}&units=metric&APPID=${this.apiKey}`)
           .then(response => (this.weather = response.data))
+          .catch(error => {
+            console.log(error);
+            this.cityNotFound = true;
+          });
+          axios
+          .get(`${this.urlBase}forecast?q=${enteredCity}&units=metric&cnt=8&APPID=${this.apiKey}`)
+          .then(response => (this.hourlyForecast = response.data))
           .catch(error => {
             console.log(error);
             this.cityNotFound = true;
@@ -53,7 +63,8 @@ export default {
   components: {
     Header,
     AboutModal,
-    CityNotFoundModal
+    CityNotFoundModal,
+    WeatherDisplayArea
   }
 }
 </script>

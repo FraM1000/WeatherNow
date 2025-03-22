@@ -6,7 +6,8 @@
         </div>
         <p class="explanation">
             WeatherNow allows you to search and view the weather of any city in the world.
-            Search for a city by entering the name in the search bar, before pressing enter make sure the name has not been misspelled.
+            Search for a city by entering the name in the search bar, before pressing enter make sure the name has not
+            been misspelled.
         </p>
     </div>
 </template>
